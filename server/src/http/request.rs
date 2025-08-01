@@ -9,7 +9,7 @@ use std::str::Utf8Error;
 #[derive(Debug)]
 pub struct Request<'buf> {
     path: &'buf str,
-    query_string: Option<QueryString<'buf>>,
+    query_string: Option<QueryString<'buf>>, // Rust nullable type, can be None
     method: Method,
 }
 
@@ -61,7 +61,7 @@ impl<'buf> TryFrom<&'buf [u8]> for Request<'buf> {
 fn get_next_word(request: &str) -> Option<(&str, &str)> {
     for (i, c) in request.chars().enumerate() {
         if c == ' ' || c == '\r' {
-            return Some((&request[..i], &request[i + 1..]));
+            return Some((&request[..i], &request[i + 1..])); // We skip the space that has size 1
         }
     }
 

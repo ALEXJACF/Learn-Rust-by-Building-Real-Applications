@@ -24,9 +24,11 @@ impl Server {
     pub fn run(self, mut handler: impl Handler) {
         println!("Listening on {}", self.addr);
 
+        // Wraps TCP Listener in a Result to handle potential errors
         let listener = TcpListener::bind(&self.addr).unwrap();
 
         loop {
+            // Accept incoming connections
             match listener.accept() {
                 Ok((mut stream, _)) => {
                     let mut buffer = [0; 1024];
@@ -39,6 +41,7 @@ impl Server {
                                 Err(e) => handler.handle_bad_request(&e),
                             };
 
+                            // Send the response back to the client
                             if let Err(e) = response.send(&mut stream) {
                                 println!("Failed to send response: {}", e);
                             }
