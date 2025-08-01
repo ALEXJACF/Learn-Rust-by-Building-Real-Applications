@@ -24,6 +24,13 @@ impl TryFrom<i32> for PositiveNumber {
 
 // - - - - - - - - - -
 
+fn print_sum(arr: &[i32]) {
+    let sum: i32 = arr.iter().sum();
+    println!("Sum of array: {}", sum);
+}
+
+// - - - - - - - - - -
+
 // This function takes two string slices and returns the longer one.
 // We use the same lifetime 'a for both inputs and the return value.
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
@@ -188,9 +195,4 @@ fn main() {
 
     println!("{:#?}", qs);
 
-}
-
-fn print_sum(arr: &[i32]) {
-    let sum: i32 = arr.iter().sum();
-    println!("Sum of array: {}", sum);
 }
